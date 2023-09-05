@@ -1,6 +1,7 @@
 package com.userApi.demoApi.controllers;
 
 
+import com.userApi.demoApi.domain.exception.NegocioExeception;
 import com.userApi.demoApi.domain.model.Veiculo;
 import com.userApi.demoApi.domain.repository.VeiculoRepository;
 import com.userApi.demoApi.domain.service.RegistroVeiculoService;
@@ -36,6 +37,16 @@ return registroVeiculoService.cadastra(veiculo);
 
 }
 
+    @ExceptionHandler(NegocioExeception.class)
+    public ResponseEntity<String> capturar(NegocioExeception e){
+        return  ResponseEntity.badRequest().body(e.getMessage());
+
+    }
+
+
 
 
 }
+
+
+
