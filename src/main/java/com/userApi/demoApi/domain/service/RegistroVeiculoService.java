@@ -27,7 +27,7 @@ public class RegistroVeiculoService {
       throw  new NegocioExeception("Veiculo ser registrado deve possui um codigo");
         }
         boolean placaUso = VeiculoRepository.findByPlaca(Novoveiculo.getPlaca())
-                        .filter(Veiculo-> !Veiculo.equals(Novoveiculo))
+                        .filter(Veiculo -> !Veiculo.equals(Novoveiculo))
                                 .isPresent();
 
         if(placaUso){
@@ -35,7 +35,8 @@ public class RegistroVeiculoService {
         }
 
         Proprietario proprietario = proprietarioRepository.findById(Novoveiculo.getProprietario().getId())
-
+                        .orElseThrow(()-> new NegocioExeception("Proprietario nao encontra"));
+        Novoveiculo.setProprietario(proprietario);
         Novoveiculo.setStatus(StatusVeiculo.REGULAR);
         Novoveiculo.setDatacadastro(LocalDateTime.now());
     return veiculoRepository.save(Novoveiculo);

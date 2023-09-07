@@ -5,6 +5,7 @@ import com.userApi.demoApi.domain.exception.NegocioExeception;
 import com.userApi.demoApi.domain.model.Veiculo;
 import com.userApi.demoApi.domain.repository.VeiculoRepository;
 import com.userApi.demoApi.domain.service.RegistroVeiculoService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,7 +33,7 @@ return veiculoRepository.findById(VeiculoId).map(ResponseEntity::ok).orElse(Resp
 
 @PostMapping
 @ResponseStatus(HttpStatus.CREATED)
-public Veiculo cadastra(@RequestBody Veiculo veiculo){
+public Veiculo cadastra( @Valid @RequestBody Veiculo veiculo){
 return registroVeiculoService.cadastra(veiculo);
 
 }
